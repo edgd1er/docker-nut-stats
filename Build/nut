@@ -1,0 +1,24 @@
+server {
+
+    listen       80;
+    server_name  SERVER_NAME;
+    #access_log   logs/domain1.access.log  main;
+    root         html;
+    auth_basic           "nut's area"
+    auth_basic_user_file /etc/nginx/.htpasswd;
+
+    location /nut {
+
+            alias /usr/share/nut/www/;
+            try_files $uri $uri/ /index.html;
+            }
+
+            location /cgi-bin/ {
+                    gzip off;
+                    root /usr/lib;
+
+                    include fastcgi_params;
+                    fastcgi_pass unix:/var/run/fcgiwrap_WNAME.socket;
+                    fastcgi_param SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            }
+}
