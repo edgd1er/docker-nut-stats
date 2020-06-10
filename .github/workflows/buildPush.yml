@@ -1,8 +1,9 @@
-name: build our image
+name: build nut multi-arch images
 
 on:
   push:
     branches: master
+  ma
 
 jobs:
   build:
@@ -15,6 +16,8 @@ jobs:
         uses: crazy-max/ghaction-docker-buildx@v1
         with:
           version: latest
+      - name: Docker login
+          run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: build the image
         run: |
         docker buildx build --push \
