@@ -10,16 +10,17 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
-      - name: install buildx
+      - name: Set up Docker Buildx
         id: buildx
-        uses: crazy-max/ghaction-docker-buildx@v1
+        uses: crazy-max/ghaction-docker-buildx@v3
         with:
-          version: latest
-      - name: Docker login
-        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - name: build the image
+          buildx-version: latest
+          qemu-version: latest
+      - name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+      - name: Run Buildx
         run: |
-        docker buildx build --push \
-          --tag edgd1er/nut-stats:latest \
-          --platform linux/amd64,linux/arm/v7,linux/arm64 \
-          ./Build
+        docker buildx build \
+        --platform linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64 \
+        --output "type=image,push=false" \
+        --file ./Build/Dockerfile ./Build
