@@ -27,8 +27,8 @@ fillHost(){
 
 createHtPwd(){
   CREATE=""
-  [[ ! -f /etc/nginx/.htpasswd ]] && CREATE="-c"
-  htpasswd -b ${CREATE} /etc/nginx/.htpasswd ${HT_USER} ${HT_PWD}
+  [[ ! -f /etc/nginx/htpwd ]] && CREATE="-c"
+  htpasswd -b ${CREATE} /etc/nginx/htpwd ${HT_USER} ${HT_PWD}
 }
 
 #main
