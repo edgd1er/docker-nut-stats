@@ -16,8 +16,8 @@ jobs:
         with:
           version: latest
       - name: build the image
-      run: |
+        run: |
         docker buildx build --push \
           --tag edgd1er/nut-stats:latest \
           --platform linux/amd64,linux/arm/v7,linux/arm64 \
-           ./Build
+          ./Build

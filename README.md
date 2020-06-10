@@ -1,11 +1,13 @@
+![.github/workflows/buildPush.yml](https://github.com/edgd1er/docker-nut-stats/workflows/.github/workflows/buildPush.yml/badge.svg)
+
 # docker-nut-stats
 Just display stats from NUT's remote monitored UPS.
 
 use [NUT](https://networkupstools.org/features.html) statistics cgi tool to display remote monitored UPS.
 
-/!\ settings parameters and sending commands is not designed in this project as I only monitor UPS with limited rights remote user.
+/!\ settings parameters and sending commands are not defined in this project as I only monitor UPS with limited rights remote user.
 
-Available docker images architecture are: amd64 arm64 arm32v7
+Available docker images architectures are: amd64 arm64 arm32v7
 
 ## usage  
 
