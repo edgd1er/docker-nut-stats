@@ -4,6 +4,9 @@ services:
     image: edgd1er/nut-stats
     build:
       context: Build
+      args:
+        BUILDPLATFORM: amd64
+        TARGETPLATFORM: amd64
       dockerfile: Dockerfile
     environment:
       SERVER_NAME: localhost

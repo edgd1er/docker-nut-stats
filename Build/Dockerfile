@@ -1,4 +1,6 @@
-FROM debian:buster-slim
+FROM --platform=$BUILDPLATFORM debian:buster-slim
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 MAINTAINER edgd1er@hotmail.com
 
@@ -13,7 +15,8 @@ ENV DAEMON="/usr/sbin/fcgiwrap"
 ENV FCGI_ADDR=127.0.0.1
 ENV FCGI_PORT=9000
 
-RUN apt-get update && apt-get install -y nut nut-cgi fcgiwrap nginx supervisor procps apache2-utils; \
+RUN echo "Buidling nut image for ${TARGETPLATFORM}"
+RUN apt-get update && apt-get install -y nut nut-cgi fcgiwrap nginx supervisor procps apache2-utils vim; \
  rm -r /var/lib/apt/lists/* ; \
  mkdir -p /var/log/supervisor; \
  chown www-data:www-data /usr/lib/cgi-bin/nut/*.cgi
