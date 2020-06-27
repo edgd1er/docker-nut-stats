@@ -22,3 +22,5 @@ nginx's access is restricted thanks to htpasswd, defined with HT_USER and HT_PWD
 
 
 Github project: [docker-nut-stats](https://github.com/edgd1er/docker-nut-stats)
+
+Docker hub: [nut-stats](https://hub.docker.com/r/edgd1er/nut-stats)
