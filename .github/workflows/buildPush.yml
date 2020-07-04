@@ -18,6 +18,14 @@ jobs:
           qemu-version: latest
       - name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
+     - name: Docker Login
+       if: github.event_name != 'pull_request'
+       run: |
+         echo "${{secrets.DOCKER_PASSWORD}}" | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Run Buildx
         run: |
-          docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64 --output "type=image,push=false" --file ./Build/Dockerfile ./Build
+          docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64 --output "type=image,push=true" --file ./Build/Dockerfile ./Build
+      - name: clean
+        if: always() && github.event_name != 'pull_request'
+        run: |
+          rm -f ${HOME}/.docker/config.json
