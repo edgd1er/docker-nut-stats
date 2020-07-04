@@ -18,9 +18,9 @@ jobs:
           qemu-version: latest
       - name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
-     - name: Docker Login
-       if: github.event_name != 'pull_request'
-       run: |
+      - name: Docker Login
+        if: github.event_name != 'pull_request'
+        run: |
          echo "${{secrets.DOCKER_PASSWORD}}" | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Run Buildx
         run: |
