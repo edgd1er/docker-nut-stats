@@ -2,6 +2,7 @@ server {
 
     listen       80;
     server_name  SERVER_NAME;
+    rewrite  ^/$  /nut/ permanent;
     #access_log   logs/domain1.access.log  main;
     root         html;
     auth_basic           "nut's area";
