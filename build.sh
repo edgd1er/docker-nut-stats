@@ -5,6 +5,10 @@
 
 set -x
 amend=""
+DUSER=edgd1er
+IMAGE=nut-stats
+TAG=latest
+IMGTAG=${DUSER}/${IMAGE}:${TAG}
 
 isQemu=$(apt list -qq qemu-user-static | grep -c install)
 if [[ $isQemu -eq 0 ]]; then
@@ -19,10 +23,10 @@ if [[ $isQemu -eq 0 ]]; then
 fi
 
 # build and push
-docker buildx build --push --no-cache --platform linux/arm64,linux/amd64,linux/arm/v7 -t edgd1er/nut-stats:latest ./Build
+docker buildx build --push --no-cache --platform linux/arm64,linux/amd64,linux/arm/v7 -t ${IMGTAG} ./Build
 
 
-isAbsent=$(docker manifest inspect edgd1er/nut-stats:latest | grep -c "no such manifest")
+isAbsent=$(docker manifest inspect ${IMGTAG} | grep -c "no such manifest")
 if [[ $isAbsent -ne 0 ]]; then
   amend=" --amend "
 fi
