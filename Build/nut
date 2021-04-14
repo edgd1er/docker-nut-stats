@@ -9,12 +9,11 @@ server {
     auth_basic_user_file /etc/nginx/htpwd;
 
     location /nut {
-
             alias /usr/share/nut/www/;
             try_files $uri $uri/ /index.html;
             }
 
-            location /cgi-bin/ {
+    location /cgi-bin/ {
                     gzip off;
                     root /usr/lib;
 
