@@ -14,7 +14,7 @@ ENV FCGI_ADDR=127.0.0.1
 ENV FCGI_PORT=9000
 
 RUN echo "Buidling nut image for $(uname -m)"
-RUN apt-get update && apt-get install -y nut nut-cgi fcgiwrap nginx supervisor procps apache2-utils vim; \
+RUN apt-get update && apt-get install -y nut nut-cgi fcgiwrap nginx supervisor procps apache2-utils curl; \
  rm -r /var/lib/apt/lists/* ; \
  mkdir -p /var/log/supervisor; \
  chown www-data:www-data /usr/lib/cgi-bin/nut/*.cgi
@@ -27,3 +27,6 @@ COPY supervisord/script.conf /etc/supervisor/conf.d/
 COPY supervisord/supervisord.conf /etc/supervisor/supervisord.conf
 
 CMD ["/usr/bin/supervisord","-c","/etc/supervisor/supervisord.conf"]
+
+HEALTHCHECK --interval=60s --timeout=3s --retries=3 --start-period=40s \
+ CMD curl -s -u${HT_USER}:${HT_PWD} --fail http://localhost/index.html || exit 1
