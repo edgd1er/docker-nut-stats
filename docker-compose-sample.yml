@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+  nut:
+    image: edgd1er/nut-stats
+    build:
+      context: Build
+      dockerfile: Dockerfile
+    environment:
+      SERVER_NAME: localhost
+      UPS1_NAME: "eaton on serve 1"
+      UPS1_LOC: "ups1@server1"
+      UPS2_NAME: "eaton on server 2"
+      UPS2_LOC: "ups1@server2"
+      HT_USER: nut
+      HT_PWD: nut
+    ports:
+      - 8282:80
+      - 2443:443
+    restart: unless-stopped
