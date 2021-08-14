@@ -1,6 +1,6 @@
 FROM debian:buster-slim
 
-MAINTAINER edgd1er@hotmail.com
+LABEL maintainer="edgd1er@hotmail.com"
 
 # Expose ports.
 EXPOSE 80
@@ -13,18 +13,18 @@ ENV DAEMON="/usr/sbin/fcgiwrap"
 ENV FCGI_ADDR=127.0.0.1
 ENV FCGI_PORT=9000
 
-RUN echo "Buidling nut image for $(uname -m)"
-RUN apt-get update && apt-get install -y nut nut-cgi fcgiwrap nginx supervisor procps apache2-utils curl; \
- rm -r /var/lib/apt/lists/* ; \
- mkdir -p /var/log/supervisor; \
- chown www-data:www-data /usr/lib/cgi-bin/nut/*.cgi
 COPY start.sh /
+
+# hadolint ignore=DL3008
+RUN echo "Buidling nut image for $(uname -m)" && \
+ apt-get update && apt-get install -y --no-install-recommends nut nut-cgi fcgiwrap nginx supervisor procps apache2-utils curl && \
+ rm -r /var/lib/apt/lists/* && \
+ mkdir -p /var/log/supervisor && \
+ chown www-data:www-data /usr/lib/cgi-bin/nut/*.cgi && \
+ chmod +x /start.sh
+COPY supervisord/* /etc/supervisor/conf.d/
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY nut /etc/nginx/sites-enabled/default
-COPY supervisord/fcgisock.conf /etc/supervisor/conf.d/
-COPY supervisord/fcgiwrap.conf /etc/supervisor/conf.d/
-COPY supervisord/nginx.conf /etc/supervisor/conf.d/
-COPY supervisord/script.conf /etc/supervisor/conf.d/
-COPY supervisord/supervisord.conf /etc/supervisor/supervisord.conf
 
 CMD ["/usr/bin/supervisord","-c","/etc/supervisor/supervisord.conf"]
 

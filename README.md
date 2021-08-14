@@ -13,10 +13,16 @@ if using pihole on the same host, use pihole's network for name resolution or us
 
 ## usage  
 
-Up to 9 UPS may be monitored, defined in docker-compose.xml.
+### env vars:
+* SERVER_NAME: nginx server name
+* LOG_DEST: nginx access log /dev/null,/var/log/acces.log, /dev/stdout by default
+* DEBUG: any value, activate bash debug et nginx-debug.
 
-UPS<X>_NAME: "ups X's name"
-UPS<X>_LOC: "ups@host"
+Up to 9 UPS may be monitored, defined in docker-compose.xml.
+each ups is defined by two values.
+
+UPS<number>_NAME: "ups X's name"
+UPS<number>_LOC: "ups@host"
 
 nginx's access is restricted thanks to htpasswd, defined with HT_USER and HT_PWD. If no values are given, HT_USER=nutuser, HT_PWD=nutpassword.
 
