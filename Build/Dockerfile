@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 FROM debian:bullseye-slim
 
 LABEL maintainer="edgd1er@hotmail.com"

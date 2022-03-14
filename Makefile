@@ -1,7 +1,7 @@
 DOCKER=/usr/bin/docker
 DOCKER_IMAGE_NAME=edgd1er/nut-stats
 PTF=linux/amd64
-DKRFILE=./Dockerfile.all
+DKRFILE=Dockerfile
 ARCHI := $(shell dpkg --print-architecture)
 IMAGE=nut-stats
 PROGRESS=AUTO
@@ -16,8 +16,8 @@ lint:
 	$(DOCKER) run --rm -i hadolint/hadolint < Build/Dockerfile
 
 build:
-	$(DOCKER) buildx build $(WHERE) --platform $(PTF) -f $(DKRFILE) --build-arg NAME=$(NAME) \
-    $(CACHE) --progress $(PROGRESS) --build-arg aptCacher=$(aptCacher) -t $(IMAGE) .
+	$(DOCKER) buildx build $(WHERE) --platform $(PTF) --build-arg NAME=$(NAME) \
+    $(CACHE) --progress $(PROGRESS) --build-arg aptCacher=$(aptCacher) -t $(IMAGE) Build
 
 push:
 	$(DOCKER) login
