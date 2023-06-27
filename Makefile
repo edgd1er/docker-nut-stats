@@ -24,7 +24,7 @@ push:
 	$(DOCKER) push $(DOCKER_IMAGE_NAME)
 
 test:
-	$(DOCKER) run --rm $(DOCKER_IMAGE_NAME) --version
+	$(DOCKER) run --rm $(DOCKER_IMAGE_NAME)
 
 clean:
 	$(DOCKER) images -qf dangling=true | xargs --no-run-if-empty $(DOCKER) rmi

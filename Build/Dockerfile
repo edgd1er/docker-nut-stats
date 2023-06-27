@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 LABEL maintainer="edgd1er@hotmail.com"
 
@@ -18,7 +18,7 @@ COPY start.sh /
 
 # hadolint ignore=DL3008
 RUN echo "Buidling nut image for $(uname -m)" && \
- apt-get update && apt-get install -y --no-install-recommends nut nut-cgi fcgiwrap nginx supervisor procps apache2-utils curl && \
+ apt-get update && apt-get install -y --no-install-recommends nut nut-cgi fcgiwrap spawn-fcgi nginx supervisor procps apache2-utils curl && \
  rm -r /var/lib/apt/lists/* && \
  mkdir -p /var/log/supervisor && \
  chown www-data:www-data /usr/lib/cgi-bin/nut/*.cgi && \
