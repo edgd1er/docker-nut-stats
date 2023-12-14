@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM debian:bookworm-slim
+FROM debian:12-slim
 
 LABEL maintainer="edgd1er@hotmail.com"
 

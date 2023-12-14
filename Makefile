@@ -4,7 +4,7 @@ PTF=linux/amd64
 DKRFILE=Dockerfile
 ARCHI := $(shell dpkg --print-architecture)
 IMAGE=nut-stats
-PROGRESS=AUTO
+PROGRESS=auto
 WHERE=--load
 CACHE=
 aptCacher:=$(shell ifconfig wlp2s0 | awk '/inet /{print $$2}')
@@ -24,7 +24,7 @@ push:
 	$(DOCKER) push $(DOCKER_IMAGE_NAME)
 
 test:
-	$(DOCKER) run --rm $(DOCKER_IMAGE_NAME)
+	$(DOCKER) run -p "8282:80" -p "2443:443" --rm --name nut $(DOCKER_IMAGE_NAME)
 
 clean:
 	$(DOCKER) images -qf dangling=true | xargs --no-run-if-empty $(DOCKER) rmi
