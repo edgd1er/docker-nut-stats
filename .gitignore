@@ -6,5 +6,5 @@
 # User-specific stuff
 .idea/**
 nuts-stats.iml
-docker-compose.yml
+compose.yml
 build.sh
